@@ -5,7 +5,7 @@ import java.util.List;
 
 public class RecipeRqstPL {
 
-	public RecipeRqstPL(int suggestedServings, boolean isVeg, String dishName, String instructions, String creationTime,
+	public RecipeRqstPL(int suggestedServings, boolean isVeg, String dishName, String instructions,
 			List<IngredientRqstPL> ingredients) {
 		super();
 
@@ -13,7 +13,6 @@ public class RecipeRqstPL {
 		this.isVeg = isVeg;
 		this.dishName = dishName;
 		this.instructions = instructions;
-		this.creationTime = creationTime;
 		this.ingredients = ingredients;
 	}
 
@@ -21,7 +20,7 @@ public class RecipeRqstPL {
 	private boolean isVeg;
 	private String dishName;
 	private String instructions;
-	private String creationTime;
+	
 	private List<IngredientRqstPL> ingredients = new ArrayList<>();
 
 	public int getSuggestedServings() {
@@ -54,14 +53,6 @@ public class RecipeRqstPL {
 
 	public void setInstructions(String instructions) {
 		this.instructions = instructions;
-	}
-
-	public String getCreationTime() {
-		return creationTime;
-	}
-
-	public void setCreationTime(String creationTime) {
-		this.creationTime = creationTime;
 	}
 
 	public List<IngredientRqstPL> getIngredients() {

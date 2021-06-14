@@ -19,7 +19,6 @@ import com.recipe.RecipeHandler.payload.*;
 @RestController
 public class RecipeController {
 
-	// autowire the RecipeService class
 	@Autowired
 	RecipeService recipeService;
 
@@ -31,16 +30,15 @@ public class RecipeController {
 	}
 
 	@PutMapping("/update/{recipeId}")
-	public ResponseEntity<RecipeRspPL> update(@RequestBody RecipeRqstPL recipe,
-			@PathVariable(value = "recipeId") int recipeId) {
+	public ResponseEntity<RecipeRspPL> update(@RequestBody RecipeRqstPL recipe,@PathVariable(value = "recipeId") int recipeId) {
 
 		RecipeRspPL updatedRecipe = recipeService.changeRecipe(recipe, recipeId);
 		return new ResponseEntity<>(updatedRecipe, HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/remove/{recipeId}")
-	public ResponseEntity<String> delete(@PathVariable("recipeId") int id) {
-		String confirmDel = recipeService.removeRecipe(id);
+	public ResponseEntity<String> delete(@PathVariable(value = "recipeId") int recipeId) {
+		String confirmDel = recipeService.removeRecipe(recipeId);
 		return new ResponseEntity<>(confirmDel, HttpStatus.OK);
 	}
 
