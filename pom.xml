@@ -60,8 +60,16 @@
 			<artifactId>mockito-core</artifactId>
 			<version>2.13.0</version>
 		</dependency>
-	</dependencies>
+		
+		<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.13.2</version>
+    <scope>test</scope>
+</dependency>
 
+	</dependencies>
+	
 	<build>
 		<plugins>
 			<plugin>

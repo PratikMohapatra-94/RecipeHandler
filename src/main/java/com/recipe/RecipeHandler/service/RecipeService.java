@@ -38,9 +38,8 @@ public class RecipeService {
 		Optional<Recipe> recipeAvl = recipeRepo.findById(id);
 		if (recipeAvl.isEmpty())
 			throw new RuntimeException("No recipe found");
-		Recipe recipe = recipeAvl.get();
-
-		Recipe updatedRecipe = recipeRequest.convert(rqstRecipe);
+		Recipe recipe = recipeAvl.get();// to be deleted
+		Recipe updatedRecipe = recipeRequest.convert(rqstRecipe); //to be saved
 		recipeRepo.delete(recipe);
 		return recipeResponse.convert(recipeRepo.save(updatedRecipe));
 
@@ -49,10 +48,10 @@ public class RecipeService {
 	public String removeRecipe(int id) {
 		String conf = null;
 		Optional<Recipe> recipeOpt = recipeRepo.findById(id);
-		if (recipeOpt.isPresent()) {
+		if (recipeOpt.isPresent() && !recipeOpt.isEmpty()) {
 			Recipe recipe = recipeOpt.get();
 			if (recipe != null) {
-				recipeRepo.delete(recipe);
+				recipeRepo.deleteById(id);
 				conf = "RECIPE REMOVED";
 			}
 		} else {
@@ -65,7 +64,7 @@ public class RecipeService {
 		Optional<Recipe> recipe = recipeRepo.findById(id);
 		if (recipe.isPresent())
 			return (recipeResponse.convert(recipe.get()));
-		return null;
+		throw new RuntimeException("No recipe found");
 	}
 
 	public List<RecipeRspPL> getAllRecipes() {
@@ -74,11 +73,11 @@ public class RecipeService {
 		List<Recipe> repoRecipes = recipeRepo.findAll();
 		repoRecipes.iterator().forEachRemaining(recipes::add);
 
-		List<RecipeRspPL> repoRecipe = new ArrayList<>();
-		recipes.forEach((temp) -> {
-			repoRecipe.add(recipeResponse.convert(temp));
+		List<RecipeRspPL> repoPLRecipe = new ArrayList<>();
+		recipes.forEach((rcp) -> {
+			repoPLRecipe.add(recipeResponse.convert(rcp));
 		});
-		return repoRecipe;
+		return repoPLRecipe;
 
 	}
 }
