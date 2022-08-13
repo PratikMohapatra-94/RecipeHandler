@@ -36,7 +36,7 @@ public class RecipeService {
 			throw new RuntimeException(errMsg);
 
 		Optional<Recipe> recipeAvl = recipeRepo.findById(id);
-		if (recipeAvl.isEmpty())
+		if (!recipeAvl.isPresent())
 			throw new RuntimeException("No recipe found");
 		Recipe recipe = recipeAvl.get();// to be deleted
 		Recipe updatedRecipe = recipeRequest.convert(rqstRecipe); //to be saved
@@ -48,7 +48,7 @@ public class RecipeService {
 	public String removeRecipe(int id) {
 		String conf = null;
 		Optional<Recipe> recipeOpt = recipeRepo.findById(id);
-		if (recipeOpt.isPresent() && !recipeOpt.isEmpty()) {
+		if (recipeOpt.isPresent() && recipeOpt.isPresent()) {
 			Recipe recipe = recipeOpt.get();
 			if (recipe != null) {
 				recipeRepo.deleteById(id);
